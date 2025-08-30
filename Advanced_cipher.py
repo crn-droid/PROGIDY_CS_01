@@ -95,7 +95,7 @@ def get_shift_value():
 
 
 def get_user_choice():
-    valid_choices = ['1', '2', '3', '4', '5']
+    valid_choices = ['1', '2', '3', '4', '5','6','7']
     while True:
         choice = input("\nChoose an option (1-5): ").strip()
         if choice in valid_choices:
@@ -108,13 +108,13 @@ def display_menu():
     print("\n" + "="*40)
     print("       CAESAR CIPHER PROGRAM")
     print("="*40)
-    # Fixed typo: "Encrypt" not "Encypt"
     print("1. Encrypt a message")
     print("2. Decrypt a message")
-    # Fixed spacing: added space after "decrypt"
     print("3. Brute force decrypt (try all shifts)")
-    print("4. About Caesar Cipher")
-    print("5. Exit")
+    print("4. Encrypt a File")
+    print("5. Decrypt a File")
+    print("6. About Caesar Cipher")
+    print("7. Exit")
     print("="*40)
 
 
@@ -140,7 +140,6 @@ def show_about():
 
 
 def encrypt_mode():
-    """Handles encryption mode."""
     print("\n--- ENCRYPTION MODE ---")
     message = input("Enter message to encrypt: ")
     if not message.strip():
@@ -156,7 +155,6 @@ def encrypt_mode():
 
 
 def decrypt_mode():
-    """Handles decryption mode."""
     print("\n--- DECRYPTION MODE ---")
     message = input("Enter message to decrypt: ")
     if not message.strip():
@@ -172,7 +170,6 @@ def decrypt_mode():
 
 
 def brute_force_mode():
-    """Handles brute force decryption mode."""
     print("\n--- BRUTE FORCE MODE ---")
     message = input("Enter encrypted message: ")
     if not message.strip():
@@ -183,6 +180,26 @@ def brute_force_mode():
     brute_force_decrypt(message)
     print("\nLook for the result that makes the most sense!")
 
+def get_file_from_user():
+    print("\n--- SELECT FILE ---")
+    print("Enter the full path to your file:")
+    print("Examples:")
+    print("  Windows: C:\\Users\\YourName\\Documents\\myfile.txt")
+    print("  Mac/Linux: /home/username/Documents/myfile.txt")
+    print("  Same folder: just type filename.txt")
+    
+    filename = input("\nFile path: ").strip()
+    return filename
+
+def file_encryption_mode():
+   file = get_file_from_user()
+   shift = get_shift_value()
+   encrypt_file(file,shift)
+
+def file_decryption_mode():
+    file = get_file_from_user()
+    shift = get_shift_value()
+    decrypt_file(file,shift)
 
 def main():
     """Main program loop."""
@@ -199,8 +216,12 @@ def main():
         elif choice == '3':
             brute_force_mode()
         elif choice == '4':
-            show_about()
+            file_encryption_mode() 
         elif choice == '5':
+            file_decryption_mode()
+        elif choice == '6':
+           show_about()
+        elif choice == '7':
             print("\nThank you for using Caesar Cipher Program!")
             print("Goodbye! 🔐")
             break
